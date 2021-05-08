@@ -25,7 +25,7 @@ module.exports = {
 
     return teams;
   },
-  createMessage(teams) {
+  createMessage(teams, params) {
     var fields = [];
     teams.forEach((team, index) => {
       fields.push({
@@ -33,6 +33,11 @@ module.exports = {
         value: `**${team.join("\n")}**`,
       });
     });
+    var hidden = {
+      name: "React: 🔄",
+      value: "```" + params + "\n Remake teams```",
+    };
+    fields.push(hidden);
     const exampleEmbed = {
       color: 0x0099ff,
       title: "Teams Generated",
