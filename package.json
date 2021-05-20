@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/Aveek-Saha/ClepsBot#readme",
   "dependencies": {
-    "discord.js": "^12.5.3"
+    "discord.js": "^12.5.3",
+    "dotenv": "^9.0.0"
   }
 }
