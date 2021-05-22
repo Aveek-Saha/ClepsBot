@@ -2,6 +2,8 @@ const keep_alive = require('./keep_alive.js')
 const Discord = require('discord.js');
 const client = new Discord.Client();
 const dotenv = require('dotenv');
+const { FisherYates } = require('js-data-structs');
+
 dotenv.config();
 const token = process.env.DISCORD_BOT_SECRET;
 const prefix = '!'
@@ -22,13 +24,13 @@ client.on('message', message => {
                 return message.channel.send(`Please provide a number, ${message.author}!`);
             }
             const channels = message.guild.channels.cache.filter(c => c.type === 'voice');
+            let users = ['anishkasi', 'Wolfinthehouse', 'pindabc', 'aprbhd', 'JakeSuli', 'gopuman', 'akshara', 'greybeard278', 'Dobby']
             for (const [channelID, channel] of channels) {
                 for (const [memberID, member] of channel.members) {
-                    console.log(member.user.username);
+                    users.push(member.user.username)
                 }
               }
-            // console.log(channels);
-            // console.log(client.channels.cache.array());
+              console.log(FisherYates(users));
             message.channel.send(`First argument: ${args[0]}`);
         }
     }
