@@ -25,12 +25,26 @@ client.on('message', message => {
             }
             const channels = message.guild.channels.cache.filter(c => c.type === 'voice');
             let users = ['anishkasi', 'Wolfinthehouse', 'pindabc', 'aprbhd', 'JakeSuli', 'gopuman', 'akshara', 'greybeard278', 'Dobby']
+            
             for (const [channelID, channel] of channels) {
                 for (const [memberID, member] of channel.members) {
                     users.push(member.user.username)
                 }
               }
-              console.log(FisherYates(users));
+              
+              let random = FisherYates(users);
+              let numTeams = parseInt(args[0])
+              let teamSize = Math.floor(random.length/numTeams);
+              if (teamSize <= 1) 
+                return message.channel.send(`Not enough people for this team size, ${message.author}!`);
+              let teams = []
+              let i
+              for (i = 0; i < numTeams -1; i++) {
+                  teams.push(random.slice(i * teamSize, (i+1) * teamSize))
+              }
+              teams.push(random.slice(i * teamSize))
+              console.log(i);
+              console.log(teams);
             message.channel.send(`First argument: ${args[0]}`);
         }
     }
