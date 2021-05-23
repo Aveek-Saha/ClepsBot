@@ -2,53 +2,11 @@ const keep_alive = require("./keep_alive.js");
 const Discord = require("discord.js");
 const client = new Discord.Client();
 const dotenv = require("dotenv");
-const { FisherYates } = require("js-data-structs");
+const { makeTeams, createMessage, getUserFromMention } = require("./utils.js");
 
 dotenv.config();
 const token = process.env.DISCORD_BOT_SECRET;
 const prefix = "!";
-
-function makeTeams(users, numTeams) {
-  let random = FisherYates(users);
-  let teams = [];
-  for (let i = 0; i < numTeams; i++) {
-    teams.push([]);
-  }
-  random.forEach((user, index) => {
-    teams[index % numTeams].push(user);
-  });
-
-  return teams;
-}
-
-function numToAlpha(num) {
-  var s = "",
-    t;
-
-  while (num > 0) {
-    t = (num - 1) % 26;
-    s = String.fromCharCode(65 + t) + s;
-    num = ((num - t) / 26) | 0;
-  }
-  return s || undefined;
-}
-
-function createMessage(teams) {
-  var fields = [];
-  teams.forEach((team, index) => {
-    fields.push({
-      name: `__Team ${numToAlpha(index + 1)}__`,
-      value: `**${team.join("\n")}**`,
-    });
-  });
-  const exampleEmbed = {
-    color: 0x0099ff,
-    title: "Teams Generated",
-    fields: fields,
-  };
-
-  return exampleEmbed;
-}
 
 client.on("ready", () => {
   console.log(client.user.username, "is running");
@@ -57,7 +15,8 @@ client.on("ready", () => {
 client.on("message", (message) => {
   if (
     message.content.startsWith(prefix) &&
-    message.author.id != client.user.id
+    message.author.id != client.user.id &&
+    !message.author.bot
   ) {
     const args = message.content.slice(prefix.length).trim().split(/ +/);
     const command = args.shift().toLowerCase();
@@ -75,13 +34,24 @@ client.on("message", (message) => {
       const channels = message.guild.channels.cache.filter(
         (c) => c.type === "voice"
       );
-      // let users = ['anishkasi', 'Wolfinthehouse', 'pindabc', 'aprbhd', 'JakeSuli', 'gopuman', 'akshara', 'greybeard278', 'Dobby']
-      // var users = [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14]
+      //   let users = ['anishkasi', 'Wolfinthehouse', 'pindabc', 'aprbhd', 'JakeSuli', 'gopuman', 'akshara', 'greybeard278', 'Dobby']
+      var users = [];
 
       for (const [channelID, channel] of channels) {
         for (const [memberID, member] of channel.members) {
           users.push(member.user.username);
         }
+      }
+
+      let mentions = args.slice(1);
+
+      if (mentions.length) {
+        var exclude = [];
+        mentions.forEach((ex) => {
+          var userObj = client.users.cache.get(getUserFromMention(ex));
+          if (userObj) exclude.push(userObj.username);
+        });
+        users = users.filter((i) => exclude.indexOf(i) === -1);
       }
 
       let numTeams = parseInt(args[0]);
@@ -92,7 +62,6 @@ client.on("message", (message) => {
         );
       var teams = makeTeams(users, numTeams);
 
-      console.log(teams);
       var msg = createMessage(teams);
       message.channel.send({ embed: msg });
     }
