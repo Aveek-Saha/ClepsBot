@@ -21,21 +21,27 @@ function makeTeams(users, numTeams) {
     return teams
 }
 
+function numToAlpha(num){
+    var s = '', t;
+  
+    while (num > 0) {
+      t = (num - 1) % 26;
+      s = String.fromCharCode(65 + t) + s;
+      num = (num - t)/26 | 0;
+    }
+    return s || undefined;
+  }
+
 function createMessage(teams) {
     var fields = []
+    teams.forEach((team, index) => {
+        fields.push({ name: `__Team ${numToAlpha(index + 1)}__`, value: `**${team.join('\n')}**` })
+    });
     const exampleEmbed = {
         color: 0x0099ff,
         title: 'Teams Generated',
         fields: fields
     };
-    // const exampleEmbed = new Discord.MessageEmbed()
-	// .setColor('#0099ff')
-	// .setTitle('Teams Generated')
-	// .addFields(
-	// 	{ name: '__Team 1__', value: 'Some value here \n also here' },
-	// 	{ name: 'Team 2', value: 'Some value here' },
-	// 	{ name: 'Team 3', value: 'Some value here' },
-	// )
 
     return exampleEmbed
 }
