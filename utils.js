@@ -34,7 +34,7 @@ module.exports = {
       });
     });
     var hidden = {
-      name: `\n 🔄`,
+      name: "React: 🔄",
       value: "```" + params + "\n Remake teams```",
     };
     fields.push(hidden);

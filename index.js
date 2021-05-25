@@ -33,18 +33,18 @@ client.on("message", (message) => {
       const channels = message.guild.channels.cache.filter(
         (c) => c.type === "voice"
       );
-      let users = [
-        "anishkasi",
-        "Wolfinthehouse",
-        "pindabc",
-        "aprbhd",
-        "JakeSuli",
-        "gopuman",
-        "akshara",
-        "greybeard278",
-        "Dobby",
-      ];
-      //   var users = [];
+      // let users = [
+      //   "anishkasi",
+      //   "Wolfinthehouse",
+      //   "pindabc",
+      //   "aprbhd",
+      //   "JakeSuli",
+      //   "gopuman",
+      //   "akshara",
+      //   "greybeard278",
+      //   "Dobby",
+      // ];
+      var users = [];
 
       for (const [channelID, channel] of channels) {
         for (const [memberID, member] of channel.members) {
@@ -92,9 +92,10 @@ client.on("messageReactionAdd", async (reaction, user) => {
     }
   }
 
-  if (reaction.emoji.name === "🔄") {
-    console.log(reaction.message.embeds[0]);
-    // var text = reaction.message.embeds[0].footer.proxyIconURL.split('-')
+  if (
+    reaction.emoji.name === "🔄" &&
+    reaction.message.author.id == client.user.id
+  ) {
     var text = reaction.message.embeds[0].fields
       .pop()
       .value.match(/\`\`\`(.*?)\n/i)[1]
