@@ -35,13 +35,13 @@ module.exports = {
     });
     var hidden = {
       name: `\n 🔄`,
-      value: "```"+ params +"\n Remake teams```",
-    }
-    fields.push(hidden)
+      value: "```" + params + "\n Remake teams```",
+    };
+    fields.push(hidden);
     const exampleEmbed = {
       color: 0x0099ff,
       title: "Teams Generated",
-      fields: fields
+      fields: fields,
     };
 
     return exampleEmbed;
