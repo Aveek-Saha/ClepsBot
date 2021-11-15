@@ -17,3 +17,8 @@ Exclude users from teams
 // If you want to make teams without users username1 and username2
 !teams <number of teams> @username1 @username2
 ```
+
+# Screenshots
+
+<img src="https://github.com/Aveek-Saha/ClepsBot/blob/master/img/cleps_bot_1.png" width="50%"></img>
+<img src="https://github.com/Aveek-Saha/ClepsBot/blob/master/img/cleps_bot_2.png" width="50%"></img>
