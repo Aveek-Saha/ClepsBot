@@ -20,5 +20,5 @@ Exclude users from teams
 
 # Screenshots
 
-<img src="https://github.com/Aveek-Saha/ClepsBot/blob/master/img/cleps_bot_1.png" width="50%"></img>
-<img src="https://github.com/Aveek-Saha/ClepsBot/blob/master/img/cleps_bot_2.png" width="50%"></img>
+<img src="https://github.com/Aveek-Saha/ClepsBot/blob/master/img/cleps_bot_1.jpg" width="50%"></img>
+<img src="https://github.com/Aveek-Saha/ClepsBot/blob/master/img/cleps_bot_2.jpg" width="50%"></img>
