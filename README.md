@@ -20,5 +20,8 @@ Exclude users from teams
 
 # Screenshots
 
+**Create and recreate teams**
 <img src="https://github.com/Aveek-Saha/ClepsBot/blob/master/img/cleps_bot_1.jpg" width="30%"></img>
+
+**Exclude @username from the team**
 <img src="https://github.com/Aveek-Saha/ClepsBot/blob/master/img/cleps_bot_2.jpg" width="30%"></img>
